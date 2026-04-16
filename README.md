@@ -1,47 +1,114 @@
-# SummPDF: Total React + Go Migration 🚀
+<div align="center">
+  
+# 🚀 SummPDF
 
-SummPDF has been successfully migrated from Next.js into a unified **Vite React SPA** frontend and a high-performance **Go Gin API** backend.
+**Instant AI-Powered PDF Summaries & Intelligent Chat**
 
-## 🏗️ Project Structure
+A high-performance full-stack application built with **React (Vite)** and **Go (Gin)** that empowers you to instantly summarize documents, interactively chat with your PDFs, and manage your studies effectively.
 
--   `/frontend`: **Standalone React 19 (Vite) SPA**. Handles all UI, routing, and cloud uploads.
--   `/backend`: **Go Language API**. Handles AI Summarization, PDF processing, Chat, and Database (MongoDB).
+---
 
-## ✨ Key Features (Total React Edition)
+[![Frontend](https://img.shields.io/badge/Frontend-React_19_%7C_Vite-61DAFB?style=for-the-badge&logo=react&logoColor=black)](#)
+[![Backend](https://img.shields.io/badge/Backend-Go_API-00ADD8?style=for-the-badge&logo=go&logoColor=white)](#)
+[![AI Platform](https://img.shields.io/badge/AI_Engine-Google_Gemini-FFA700?style=for-the-badge&logo=google&logoColor=white)](#)
+[![Database](https://img.shields.io/badge/Database-MongoDB-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](#)
 
--   **⚡ Blazing-Fast Frontend**: Migrated to Vite for instant HMR and smaller bundles.
--   **🏢 Unified Go Brain**: All logic (AI, Chat, DB) is consolidated in a high-speed Go API.
--   **🧠 AI Summarization**: Powered by Google Gemini via the Go SDK—now part of the backend!
--   **💬 Interactive PDF Chat**: Real-time AI chat integrated directly with the Go service.
--   **📊 Modern Dashboard**: Fully reactive document management with instant UI status updates.
--   **🎨 Premium Design**: Maintained the high-end Rose/Teal theme with Tailwind v4.
+</div>
+
+<br>
+
+SummPDF has been completely reimagined to deliver blazing-fast processing by leveraging a **Vite React Single Page Application** to handle complex user interfaces and a deeply optimized **Go Gin API** responsible for heavy computational loads, AI coordination, and data ingestion.
+
+## ✨ Key Features
+
+- **⚡ Blazing-Fast Interface:** Powered by Vite & React 19, giving instant load speeds and immediate responses.
+- **🧠 Advanced AI Summarization:** Integrated seamlessly with the Google Gemini SDK for incredibly accurate document distillation.
+- **💬 Interactive PDF Intelligence:** Ask questions and have fluid, real-time conversations directly with your documents.
+- **🔒 Secure Authentication:** Handled professionally through Clerk for robust user management.
+- **📦 Cloud File Storage:** UploadThing integration allows seamless, secure cloud hosting of all your uploaded PDFs.
+- **🎨 Premium UI/UX:** Stunning, high-end Teal & Rose design system completely tokenized via TailwindCSS v4.
+
+---
+
+## 🏗️ Architecture Stack
+
+### 💻 Frontend Client
+- **Framework:** React 19 + Vite
+- **Language:** JavaScript/TypeScript
+- **Styling:** TailwindCSS v4
+- **Routing:** React Router v7
+- **Authentication:** Clerk React SDK
+
+### ⚙️ Backend Engine
+- **Language:** Golang (Go 1.22+)
+- **Server Framework:** Gin Web Framework
+- **Database:** MongoDB (Go Driver)
+- **AI Integration:** Google Generative AI SDK (Gemini AI platform)
+
+---
 
 ## 🚀 Getting Started
 
-### 1. Backend (Go Language)
-Requires Go 1.22+ and a `.env` file with `DATABASE_URL` (MongoDB) and `GEMINI_API_KEY`.
+### Prerequisites
+
+Ensure you have the following installed on your local development machine:
+- **[Go](https://go.dev/)** (v1.22 or higher)
+- **[Node.js](https://nodejs.org/)** (v18 or higher)
+- **[npm](https://www.npmjs.com/)** or **yarn**
+
+### 1️⃣ Setting up the Backend (Go)
+
+You must configure your `.env` variables located at `backend/.env`. You will need to provide your `DATABASE_URL` (MongoDB Atlas string) and your `GEMINI_API_KEY`.
 
 ```bash
 cd backend
+
+# Install all Go module dependencies
 go mod tidy
+
+# Start the Gin server
 go run cmd/main.go
 ```
-*Backend runs on: `http://localhost:8080`*
+*The Backend API will spin up and listen on: `http://localhost:8080`*
 
-### 2. Frontend (Vite + React)
-Requires Node.js 18+ and a `.env` with `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_UPLOADTHING_TOKEN`.
+### 2️⃣ Setting up the Frontend (React Vite)
+
+You must configure the `.env` file located in the `frontend/` directory with your unique `VITE_CLERK_PUBLISHABLE_KEY` and `VITE_UPLOADTHING_TOKEN`.
 
 ```bash
 cd frontend
+
+# Install package dependencies
 npm install
+
+# Run the local development server
 npm run dev
 ```
-*Frontend runs on: `http://localhost:5173`*
-
-## 🛠️ Stack Summary
--   **Frontend**: React 19, Vite, TypeScript, Tailwind v4, React Router, Clerk React SDK.
--   **Backend**: Go (Gin), MongoDB Go Driver, Google Generative AI SDK (Gemini).
--   **Cloud**: UploadThing (PDF Storage), MongoDB Atlas (Database).
+*The Frontend Dashboard will be accessible at: `http://localhost:5173`*
 
 ---
-*Optimized for speed and maintainability.* 💎
+
+## 📂 Project Structure Overview
+
+```text
+summpdf-master/
+├── backend/                       # Go (Gin) API Backend
+│   ├── cmd/main.go                # Application entry point
+│   ├── internal/handlers/         # HTTP request handlers (Auth, Chat, Study, Summary)
+│   ├── internal/models/           # DB schema modeling
+│   ├── internal/service/          # Business logic & AI generation pipelines
+│   └── pkg/config/                # Global environment configuration
+└── frontend/                      # React SPA
+    ├── src/components/            # UI components (Upload, Study, Chat dialogs)
+    ├── src/pages/                 # Key screens (Dashboard, Home, Pricing)
+    ├── src/lib/                   # API abstractions (UploadThing, Langchain)
+    └── src/index.css              # Global styling via Tailwind v4
+```
+
+---
+
+<div align="center">
+  <b>Built with ❤️ by the SummPDF Team</b>
+  <br>
+  <i>Optimized for speed, scaling, and maintainability.</i>
+</div>
