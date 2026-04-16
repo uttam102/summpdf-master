@@ -1,6 +1,7 @@
 <div align="center">
   
 <img src="img/logo.png" alt="SummPDF Logo" width="150">
+<br>
 
 **Instant AI-Powered PDF Summaries & Intelligent Chat**
 
