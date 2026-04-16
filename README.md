@@ -1,5 +1,7 @@
 <div align="center">
   
+<img src="img/logo.png" alt="SummPDF Logo" width="150">
+
 # SummPDF
 
 **Instant AI-Powered PDF Summaries & Intelligent Chat**
@@ -162,8 +164,22 @@ summpdf-master/
 
 ---
 
+## 📬 Connect with Us
+
+Reach out to the developers if you have any questions, ideas, or feedback:
+
+👨‍💻 **Uttam Kalsariya**
+- 📧 Email: [uttamkalsariya2@gmail.com](mailto:uttamkalsariya2@gmail.com)
+- 🐙 GitHub: [@uttam102](https://github.com/uttam102)
+
+👨‍💻 **Akash Kalsariya**
+- 📧 Email: [akashkalsariya88@gmail.com](mailto:akashkalsariya88@gmail.com)
+- 🐙 GitHub: [@AKASH88](https://github.com/AKASH88)
+
+---
+
 <div align="center">
-  <b>Built with ❤️ by the SummPDF Team</b>
+  <b>Built with ❤️ by Uttam & Akash</b>
   <br>
   <i>Optimized for speed, scaling, and maintainability.</i>
 </div>
