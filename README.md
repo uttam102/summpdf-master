@@ -1,6 +1,6 @@
 <div align="center">
   
-# 🚀 SummPDF
+# SummPDF
 
 **Instant AI-Powered PDF Summaries & Intelligent Chat**
 
