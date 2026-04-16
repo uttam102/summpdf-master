@@ -2,8 +2,6 @@
   
 <img src="img/logo.png" alt="SummPDF Logo" width="150">
 
-
-
 **Instant AI-Powered PDF Summaries & Intelligent Chat**
 
 A high-performance full-stack application built with **React (Vite)** and **Go (Gin)** that empowers you to instantly summarize documents, interactively chat with your PDFs, and manage your studies effectively.
