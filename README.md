@@ -30,6 +30,24 @@ SummPDF has been completely reimagined to deliver blazing-fast processing by lev
 
 ---
 
+## 📸 Screenshots
+
+*(Replace the links below with your actual screenshot images once you capture them)*
+
+### 1. 🏠 Landing / Home Page
+> *Showcases the beautiful Teal & Rose UI/UX design.*
+<img src="https://via.placeholder.com/800x450.png?text=Landing+Page+Screenshot" alt="SummPDF Landing Page" width="800">
+
+### 2. 📊 User Dashboard
+> *Shows all uploaded files, processing statuses, and study folders.*
+<img src="https://via.placeholder.com/800x450.png?text=User+Dashboard+Screenshot" alt="Dashboard" width="800">
+
+### 3. 💬 AI Summarization & Chat Interface
+> *Highlights the core feature: reading the summary and chatting with the PDF.*
+<img src="https://via.placeholder.com/800x450.png?text=PDF+Chat+Interface+Screenshot" alt="AI Chat Interface" width="800">
+
+---
+
 ## 🏗️ Architecture Stack
 
 ### 💻 Frontend Client
