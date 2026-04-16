@@ -1,0 +1,264 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SummPDF | Simple Plans for Massive Insights</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .bg-gradient {
+            background: radial-gradient(circle at 50% 0%, #fff1f2 0%, #fff7ed 50%, #f0f9ff 100%);
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #f43f5e;
+        }
+
+        .plan-card {
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+
+        .plan-card:hover {
+            transform: translateY(-12px);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient min-h-screen">
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 group">
+                <div class="p-1.5 bg-rose-500 rounded-lg shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-white">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <line x1="10" y1="9" x2="8" y2="9" />
+                    </svg>
+                </div>
+                <span class="font-black text-2xl text-slate-900 tracking-tight">Summ<span
+                        class="text-rose-600">PDF</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">Home</a>
+                <a href="/about"
+                    class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">About</a>
+                <a href="/dashboard"
+                    class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">Dashboard</a>
+                <a href="/pricing"
+                    class="text-sm font-bold text-rose-600 underline underline-offset-8 decoration-2">Pricing</a>
+                {{if .userName}}
+                <div class="flex items-center gap-3 pl-4 border-l border-slate-100">
+                    <span class="text-sm font-bold text-slate-900">{{.userName}}</span>
+                    <a href="/profile"
+                        class="w-10 h-10 rounded-full border-2 border-rose-100 overflow-hidden hover:scale-110 transition-transform">
+                        <img src="{{.userPicture}}" alt="Profile" class="w-full h-full object-cover">
+                    </a>
+                </div>
+                {{else}}
+                <a href="/auth/google/login"
+                    class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-rose-600 transition-all shadow-lg active:scale-95">Login</a>
+                {{end}}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-24 max-w-6xl">
+        <div class="text-center space-y-4 mb-20">
+            <p class="text-rose-600 font-black text-xs uppercase tracking-[0.4em]">Pricing Plans</p>
+            <h1 class="text-5xl md:text-6xl font-black text-slate-900 tracking-tighter">Simple plans for massive
+                Insights</h1>
+            <p class="text-slate-500 font-bold text-lg">Choose the perfect plan to streamline your document workflow.
+            </p>
+        </div>
+
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-8 max-w-4xl mx-auto mb-32">
+            <!-- Basic Plan -->
+            <div class="plan-card glass p-12 rounded-[48px] border-white shadow-2xl shadow-rose-100/50 flex flex-col">
+                <div class="mb-10">
+                    <h3 class="text-2xl font-black text-slate-900 mb-2">Basic</h3>
+                    <p class="text-slate-500 font-bold">Perfect for occasional research.</p>
+                </div>
+                <div class="mb-10 flex items-baseline gap-1">
+                    <span class="text-6xl font-black text-slate-900">$9</span>
+                    <span class="text-slate-400 font-bold">/ month</span>
+                </div>
+                <ul class="space-y-5 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-slate-600 font-bold">
+                        <div class="p-1 bg-rose-100 text-rose-500 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        10 PDFs summary / month
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-600 font-bold">
+                        <div class="p-1 bg-rose-100 text-rose-500 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        Standard processing speed
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-600 font-bold">
+                        <div class="p-1 bg-rose-100 text-rose-500 rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        Email support
+                    </li>
+                </ul>
+                <a href="/dashboard"
+                    class="w-full py-5 rounded-2xl bg-slate-900 text-white font-black text-center shadow-xl hover:bg-rose-600 transition-all active:scale-95">Buy
+                    Now →</a>
+            </div>
+
+            <!-- Pro Plan (From Screenshot) -->
+            <div
+                class="plan-card glass p-12 rounded-[48px] border-2 border-rose-500 shadow-3xl shadow-rose-200/50 relative flex flex-col bg-white">
+                <div
+                    class="absolute -top-5 right-12 bg-rose-500 text-white px-6 py-1.5 rounded-full text-[10px] font-black uppercase tracking-widest shadow-lg">
+                    Recommended</div>
+                <div class="mb-10">
+                    <h3 class="text-2xl font-black text-slate-900 mb-2">Pro</h3>
+                    <p class="text-slate-500 font-bold">For high-intensity power users.</p>
+                </div>
+                <div class="mb-10 flex items-baseline gap-1">
+                    <span class="text-6xl font-black text-slate-900">$19</span>
+                    <span class="text-slate-400 font-bold">/ month</span>
+                </div>
+                <ul class="space-y-5 mb-12 flex-grow">
+                    <li class="flex items-center gap-4 text-slate-700 font-black">
+                        <div class="p-1 bg-rose-500 text-white rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        Unlimited PDFs summary
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-700 font-black">
+                        <div class="p-1 bg-rose-500 text-white rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        Priority processing
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-700 font-black">
+                        <div class="p-1 bg-rose-500 text-white rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        24/7 Priority support
+                    </li>
+                    <li class="flex items-center gap-4 text-slate-700 font-black">
+                        <div class="p-1 bg-rose-500 text-white rounded-full">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="4">
+                                <polyline points="20 6 9 17 4 12" />
+                            </svg>
+                        </div>
+                        Advanced AI models
+                    </li>
+                </ul>
+                <button
+                    class="w-full py-5 rounded-2xl bg-rose-600 text-white font-black text-center shadow-xl shadow-rose-200 hover:bg-rose-500 hover:scale-105 transition-all active:scale-95">Buy
+                    Now →</button>
+            </div>
+        </div>
+
+        <!-- Empower Your Knowledge Banner (From Screenshot) -->
+        <section
+            class="bg-slate-900 rounded-[48px] p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-3xl mb-24 border-t-4 border-rose-500 overflow-hidden relative">
+            <div class="absolute top-0 right-0 w-64 h-64 bg-rose-500/10 blur-[80px]"></div>
+            <div class="space-y-4 max-w-xl relative z-10">
+                <h2 class="text-3xl font-black">Empower Your Knowledge</h2>
+                <p class="text-slate-400 font-medium leading-relaxed">SummPDF is not just a tool, it's your personal AI
+                    bridge to understanding complex information. Save hours, extract insights, and master your documents
+                    in seconds.</p>
+            </div>
+            <a href="/dashboard"
+                class="px-8 py-4 bg-rose-600 rounded-2xl font-black text-sm hover:bg-rose-500 transition-all shadow-xl shadow-rose-900/50 whitespace-nowrap relative z-10">Start
+                Uploading Now</a>
+        </section>
+    </main>
+
+    <!-- Professional Navy Footer -->
+    <footer class="bg-slate-950 text-white pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div class="p-1 bg-rose-500 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" class="text-white">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                            </svg>
+                        </div>
+                        <span class="font-black text-2xl tracking-tight">Summ<span
+                                class="text-rose-500">PDF</span></span>
+                    </div>
+                    <p class="text-slate-400 font-medium text-sm leading-relaxed">The leading AI-powered PDF
+                        summarization platform. Turning lengthy documents into actionable insights since 2024.</p>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Product</h5>
+                    <ul class="space-y-4">
+                        <li><a href="/dashboard" class="footer-link text-sm font-bold">PDF Summarizer</a></li>
+                        <li><a href="/dashboard" class="footer-link text-sm font-bold">User Dashboard</a></li>
+                        <li><a href="/pricing" class="footer-link text-sm font-bold">Pricing Plans</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Company</h5>
+                    <ul class="space-y-4">
+                        <li><a href="/about" class="footer-link text-sm font-bold">About Us</a></li>
+                        <li><a href="#" class="footer-link text-sm font-bold">Contact Support</a></li>
+                        <li><a href="#" class="footer-link text-sm font-bold">Blog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Legal & Trust</h5>
+                    <ul class="space-y-4">
+                        <li><a href="#" class="footer-link text-sm font-bold">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link text-sm font-bold">Terms of Service</a></li>
+                        <li><a href="#" class="footer-link text-sm font-bold">GDPR Compliance</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-slate-900 flex flex-col md:flex-row justify-between items-center gap-6">
+                <p class="text-slate-500 text-xs font-bold">© 2026 SummPDF Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>

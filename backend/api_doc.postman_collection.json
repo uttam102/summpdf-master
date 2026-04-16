@@ -1,0 +1,57 @@
+{
+    "info": {
+        "_postman_id": "summpdf-backend-postman",
+        "name": "SummPDF Go Backend API",
+        "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+    },
+    "item": [
+        {
+            "name": "Health Check",
+            "request": {
+                "method": "GET",
+                "header": [],
+                "url": {
+                    "raw": "http://localhost:8080/ping",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "ping"
+                    ]
+                }
+            },
+            "response": []
+        },
+        {
+            "name": "Chat with PDF",
+            "request": {
+                "method": "POST",
+                "header": [
+                    {
+                        "key": "Content-Type",
+                        "value": "application/json"
+                    }
+                ],
+                "body": {
+                    "mode": "raw",
+                    "raw": "{\n    \"pdfUrl\": \"https://www.w3.org/WAI/ER/tests/xhtml/testfiles/resources/pdf/dummy.pdf\",\n    \"question\": \"Describe this document.\"\n}"
+                },
+                "url": {
+                    "raw": "http://localhost:8080/api/chat",
+                    "protocol": "http",
+                    "host": [
+                        "localhost"
+                    ],
+                    "port": "8080",
+                    "path": [
+                        "api",
+                        "chat"
+                    ]
+                }
+            },
+            "response": []
+        }
+    ]
+}

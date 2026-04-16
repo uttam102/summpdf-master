@@ -1,0 +1,439 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SummPDF | AI Workstation</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800;900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .glass {
+            background: rgba(255, 255, 255, 0.7);
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(255, 255, 255, 0.4);
+        }
+
+        .bg-gradient {
+            background: radial-gradient(circle at top left, #fff1f2 0%, #fff7ed 50%, #f0f9ff 100%);
+        }
+
+        .footer-link {
+            color: #94a3b8;
+            transition: color 0.2s;
+        }
+
+        .footer-link:hover {
+            color: #f43f5e;
+        }
+
+        .btn-premium {
+            background: linear-gradient(135deg, #f43f5e 0%, #e11d48 100%);
+            transition: all 0.3s;
+        }
+
+        .btn-premium:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 20px -5px rgba(225, 29, 72, 0.3);
+        }
+    </style>
+</head>
+
+<body class="bg-gradient min-h-screen">
+    <nav class="sticky top-0 z-50 w-full bg-white/80 backdrop-blur-md border-b border-slate-100">
+        <div class="container mx-auto px-6 py-4 flex items-center justify-between">
+            <a href="/" class="flex items-center gap-2 group">
+                <div class="p-1.5 bg-rose-500 rounded-lg shadow-lg">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="text-white">
+                        <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                        <polyline points="14 2 14 8 20 8" />
+                        <line x1="16" y1="13" x2="8" y2="13" />
+                        <line x1="16" y1="17" x2="8" y2="17" />
+                        <line x1="10" y1="9" x2="8" y2="9" />
+                    </svg>
+                </div>
+                <span class="font-black text-2xl text-slate-900 tracking-tight">Summ<span
+                        class="text-rose-600">PDF</span></span>
+            </a>
+            <div class="hidden md:flex items-center gap-8">
+                <a href="/" class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">Home</a>
+                <a href="/about"
+                    class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">About</a>
+                <a href="/dashboard"
+                    class="text-sm font-bold text-rose-600 underline underline-offset-8 decoration-2">Dashboard</a>
+                <a href="/pricing"
+                    class="text-sm font-bold text-slate-600 hover:text-rose-500 transition-colors">Pricing</a>
+                {{if .userName}}
+                <div class="flex items-center gap-3 pl-4 border-l border-slate-100">
+                    <span class="text-sm font-bold text-slate-900">{{.userName}}</span>
+                    <a href="/profile"
+                        class="w-10 h-10 rounded-full border-2 border-rose-100 overflow-hidden hover:scale-110 transition-transform">
+                        <img src="{{.userPicture}}" alt="Profile" class="w-full h-full object-cover">
+                    </a>
+                </div>
+                {{else}}
+                <a href="/auth/google/login"
+                    class="bg-slate-900 text-white px-6 py-2.5 rounded-full text-sm font-bold hover:bg-rose-600 transition-all shadow-lg active:scale-95">Login</a>
+                {{end}}
+            </div>
+        </div>
+    </nav>
+
+    <main class="container mx-auto px-6 py-12 max-w-7xl">
+        <!-- Dashboard Header -->
+        <div class="flex flex-col md:flex-row items-end justify-between gap-6 mb-12">
+            <div class="space-y-2">
+                <div class="flex items-center gap-3">
+                    <span
+                        class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[10px] font-black uppercase rounded-full border border-emerald-100 flex items-center gap-2">
+                        <span class="w-1.5 h-1.5 bg-emerald-500 rounded-full animate-pulse"></span>
+                        AI Engine Active
+                    </span>
+                </div>
+                <h1 class="text-4xl font-black text-slate-900 tracking-tight">Welcome Back, {{if
+                    .userName}}{{.userName}}{{else}}Explorer{{end}}</h1>
+                <p class="text-slate-500 font-bold">Your personal intelligence workstation is ready.</p>
+            </div>
+            <div class="flex gap-4">
+                <div class="bg-white px-6 py-3 rounded-2xl border border-slate-100 shadow-sm text-center">
+                    <p class="text-2xl font-black text-rose-500">{{len .summaries}}</p>
+                    <p class="text-[10px] font-black text-slate-400 uppercase tracking-widest">Total Tasked</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 mb-20">
+            <!-- Left Side: Control Panel (4 cols) -->
+            <div class="lg:col-span-4 space-y-8">
+                <div
+                    class="glass p-10 rounded-[48px] shadow-2xl shadow-rose-100/50 border-white relative overflow-hidden">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500/5 blur-[40px]"></div>
+                    <h2 class="text-2xl font-black text-slate-900 mb-8 flex items-center gap-3">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="3" class="text-rose-500">
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                            <polyline points="17 8 12 3 7 8" />
+                            <line x1="12" y1="3" x2="12" y2="15" />
+                        </svg>
+                        Distill Knowledge
+                    </h2>
+
+                    <form id="summarizeForm" class="space-y-8">
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] pl-1">Select
+                                Document</label>
+                            <label class="block group cursor-pointer">
+                                <div
+                                    class="bg-slate-50 border-2 border-dashed border-slate-200 rounded-[32px] p-10 text-center group-hover:border-rose-400 group-hover:bg-rose-50/30 transition-all relative">
+                                    <input type="file" id="pdfFile" accept="application/pdf" required
+                                        class="absolute inset-0 opacity-0 cursor-pointer">
+                                    <div
+                                        class="mb-4 w-12 h-12 bg-white rounded-2xl shadow-sm flex items-center justify-center mx-auto text-slate-400 group-hover:text-rose-500 group-hover:shadow-rose-100 transition-all">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                            viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                                            <path
+                                                d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                            <polyline points="14 2 14 8 20 8" />
+                                        </svg>
+                                    </div>
+                                    <p id="fileName" class="text-xs font-black text-slate-600">Drop PDF here or click
+                                    </p>
+                                </div>
+                            </label>
+                        </div>
+
+                        <div class="space-y-3">
+                            <label class="text-[10px] font-black text-slate-400 uppercase tracking-[0.2em] pl-1">AI
+                                Intelligence Level</label>
+                            <select id="provider"
+                                class="w-full bg-white border border-slate-200 rounded-2xl p-4 font-bold text-slate-700 outline-none focus:border-rose-500 shadow-sm transition-all appearance-none cursor-pointer">
+                                <option value="claude">Claude 3.5 Sonnet (Advanced)</option>
+                                <option value="ollama">Ollama (Local Privacy)</option>
+                                <option value="extractive">Fast Extractive (Offline)</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" id="submitBtn"
+                            class="btn-premium w-full text-white font-black py-5 rounded-2xl shadow-xl shadow-rose-200 flex items-center justify-center gap-3 active:scale-95">
+                            Generate Insights
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"
+                                stroke-linejoin="round">
+                                <path d="m9 18 6-6-6-6" />
+                            </svg>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- Mission Card (As requested: home screen elements in dashboard) -->
+                <div
+                    class="bg-slate-900 p-10 rounded-[48px] text-white space-y-6 shadow-2xl relative overflow-hidden border-t-8 border-rose-500">
+                    <div class="absolute top-0 right-0 w-32 h-32 bg-rose-500/10 blur-[50px]"></div>
+                    <h3 class="text-xl font-black relative z-10">Lightning Fast AI</h3>
+                    <p class="text-slate-400 font-bold text-sm leading-relaxed relative z-10">Powered by localized LLMs
+                        for the fastest extraction speeds in the industry. Your knowledge, instantly.</p>
+                </div>
+            </div>
+
+            <!-- Right Side: Interaction Hub (8 cols) -->
+            <div class="lg:col-span-8 space-y-8">
+                <!-- Live Result Container -->
+                <div id="resultContainer"
+                    class="hidden glass p-10 rounded-[48px] shadow-3xl border-rose-100 animate-in slide-in-from-bottom-10 duration-700 bg-white/90">
+                    <div class="flex items-center justify-between border-b border-rose-50 pb-8 mb-8">
+                        <div class="flex items-center gap-4">
+                            <div
+                                class="w-12 h-12 bg-rose-500 rounded-2xl flex items-center justify-center text-white shadow-lg">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                                    fill="none" stroke="currentColor" stroke-width="2.5">
+                                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                                    <polyline points="17 8 12 3 7 8" />
+                                    <line x1="12" y1="3" x2="12" y2="15" />
+                                </svg>
+                            </div>
+                            <h2 class="text-3xl font-black text-slate-900 tracking-tight">AI Insights</h2>
+                        </div>
+                        <button onclick="copySummary()"
+                            class="text-[10px] font-black text-slate-400 uppercase tracking-widest bg-slate-50 px-6 py-3 rounded-xl border border-slate-100 hover:text-rose-600 hover:bg-rose-50 transition-all">Copy
+                            Result</button>
+                    </div>
+                    <div id="summaryText"
+                        class="text-slate-700 leading-loose font-medium text-lg bg-slate-50/50 rounded-[32px] p-10 border border-white min-h-[300px]">
+                    </div>
+                </div>
+
+                <!-- History Section -->
+                <div class="glass rounded-[48px] overflow-hidden shadow-2xl border-white bg-white/50">
+                    <div class="p-10 border-b border-slate-100 flex items-center justify-between bg-white/80">
+                        <h3 class="text-2xl font-black text-slate-900">Recent Knowledge History</h3>
+                        <div
+                            class="px-4 py-2 bg-slate-100 rounded-full text-[10px] font-black text-slate-500 uppercase tracking-widest">
+                            {{len .summaries}} Items</div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left">
+                            <thead class="bg-slate-50/50">
+                                <tr>
+                                    <th
+                                        class="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest">
+                                        Document</th>
+                                    <th
+                                        class="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                                        Words</th>
+                                    <th
+                                        class="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-center">
+                                        Status</th>
+                                    <th
+                                        class="px-10 py-6 text-[10px] font-black text-slate-400 uppercase tracking-widest text-right">
+                                        Action</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100">
+                                {{if .summaries}}
+                                {{range .summaries}}
+                                <tr class="hover:bg-rose-50/20 transition-colors group">
+                                    <td class="px-10 py-6">
+                                        <div class="flex items-center gap-3">
+                                            <div
+                                                class="w-8 h-8 bg-slate-100 rounded-lg flex items-center justify-center text-slate-400 group-hover:bg-rose-100 group-hover:text-rose-500 transition-colors">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2.5">
+                                                    <path
+                                                        d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                                </svg>
+                                            </div>
+                                            <span class="font-bold text-slate-700">{{.FileName}}</span>
+                                        </div>
+                                    </td>
+                                    <td class="px-10 py-6 font-bold text-slate-500 text-sm text-center">{{.WordCount}}
+                                    </td>
+                                    <td class="px-10 py-6 text-center">
+                                        <span
+                                            class="px-3 py-1 bg-emerald-50 text-emerald-600 text-[9px] font-black uppercase rounded-full border border-emerald-100">Success</span>
+                                    </td>
+                                    <td class="px-10 py-6 text-right">
+                                        <button onclick="viewHistoryItem('{{.ID}}')"
+                                            class="text-rose-500 font-black text-[10px] uppercase hover:underline">Veiw
+                                            Report</button>
+                                    </td>
+                                </tr>
+                                {{end}}
+                                {{else}}
+                                <tr>
+                                    <td colspan="4" class="px-10 py-32 text-center">
+                                        <div class="text-slate-300 mb-4">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="48" height="48"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1"
+                                                class="mx-auto opacity-50">
+                                                <path
+                                                    d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                                                <line x1="8" y1="13" x2="16" y2="13" />
+                                                <line x1="8" y1="17" x2="16" y2="17" />
+                                                <line x1="10" y1="9" x2="8" y2="9" />
+                                            </svg>
+                                        </div>
+                                        <p class="text-slate-400 font-bold mb-2">No history available yet.</p>
+                                        <p class="text-slate-300 text-xs">Start your first distillation to see it here.
+                                        </p>
+                                    </td>
+                                </tr>
+                                {{end}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <!-- Empower Banner (From Screenshot) -->
+                <div
+                    class="bg-slate-900 rounded-[48px] p-12 text-white flex flex-col md:flex-row items-center justify-between gap-8 shadow-3xl border-t-8 border-rose-500 overflow-hidden relative">
+                    <div class="absolute inset-0 bg-gradient-to-br from-rose-600/10 to-transparent"></div>
+                    <div class="space-y-4 max-w-xl relative z-10">
+                        <h2 class="text-3xl font-black tracking-tight">Empower Your Knowledge</h2>
+                        <p class="text-slate-400 font-medium leading-relaxed">SummPDF is not just a tool, it's your
+                            personal AI bridge. Save hours and master your documents in seconds.</p>
+                    </div>
+                    <div class="relative z-10">
+                        <div
+                            class="w-16 h-16 bg-white/5 rounded-3xl flex items-center justify-center text-rose-500 border border-white/10">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5">
+                                <path d="M12 2v4" />
+                                <path d="M12 18v4" />
+                                <path d="M4.93 4.93l2.83 2.83" />
+                                <path d="M16.24 16.24l2.83 2.83" />
+                                <path d="M2 12h4" />
+                                <path d="M18 12h4" />
+                                <path d="M4.93 19.07l2.83-2.83" />
+                                <path d="M16.24 7.76l2.83-2.83" />
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Professional Navy Footer -->
+    <footer class="bg-slate-950 text-white pt-24 pb-12">
+        <div class="container mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-20">
+                <div class="space-y-6">
+                    <div class="flex items-center gap-2">
+                        <div class="p-1 bg-rose-500 rounded-lg">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2.5" class="text-white">
+                                <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z" />
+                            </svg>
+                        </div>
+                        <span class="font-black text-2xl tracking-tight">Summ<span
+                                class="text-rose-500">PDF</span></span>
+                    </div>
+                    <p class="text-slate-400 font-medium text-sm leading-relaxed">The leading AI-powered PDF
+                        summarization platform. Turning lengthy documents into actionable insights.</p>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Product</h5>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="/dashboard" class="footer-link">PDF Summarizer</a></li>
+                        <li><a href="/dashboard" class="footer-link">User Dashboard</a></li>
+                        <li><a href="/pricing" class="footer-link">Pricing Plans</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Company</h5>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="/about" class="footer-link">About Us</a></li>
+                        <li><a href="/about" class="footer-link">Our Mission</a></li>
+                        <li><a href="#" class="footer-link">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h5 class="font-black text-xs uppercase tracking-[0.2em] mb-8 text-rose-500">Legal</h5>
+                    <ul class="space-y-4 text-sm font-bold">
+                        <li><a href="#" class="footer-link">Privacy Policy</a></li>
+                        <li><a href="#" class="footer-link">Terms of Service</a></li>
+                        <li><a href="#" class="footer-link">Cookie Policy</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="pt-12 border-t border-slate-900 flex justify-between items-center">
+                <p class="text-slate-500 text-xs font-bold">© 2026 SummPDF Inc. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const form = document.getElementById('summarizeForm');
+        const pdfInput = document.getElementById('pdfFile');
+        const fileNameDisplay = document.getElementById('fileName');
+        const resultContainer = document.getElementById('resultContainer');
+        const summaryText = document.getElementById('summaryText');
+        const submitBtn = document.getElementById('submitBtn');
+
+        pdfInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                fileNameDisplay.textContent = e.target.files[0].name;
+                fileNameDisplay.classList.add('text-rose-600');
+            }
+        });
+
+        form.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const file = pdfInput.files[0];
+            const provider = document.getElementById('provider').value;
+            if (!file) return;
+
+            submitBtn.disabled = true;
+            submitBtn.innerHTML = '<span class="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Processing...';
+            resultContainer.classList.add('hidden');
+
+            try {
+                const uploadData = new FormData();
+                uploadData.append('pdf', file);
+                const uploadRes = await fetch('/api/upload', { method: 'POST', body: uploadData });
+                const { url, name } = await uploadRes.json();
+
+                const summarizeRes = await fetch('/api/summarize', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ user_id: '{{if .isLoggedIn}}{{.userID}}{{else}}guest{{end}}', file_url: url, file_name: name, provider: provider })
+                });
+
+                const data = await summarizeRes.json();
+                summaryText.innerHTML = data.summary_text.replace(/\n/g, '<br>');
+                resultContainer.classList.remove('hidden');
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                alert('Analysis failed: ' + err.message);
+            } finally {
+                submitBtn.disabled = false;
+                submitBtn.innerHTML = 'Generate Insights <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>';
+            }
+        });
+
+        async function viewHistoryItem(id) {
+            try {
+                const res = await fetch(`/api/summaries/item/${id}`);
+                const data = await res.json();
+                summaryText.innerHTML = data.summary_text.replace(/\n/g, '<br>');
+                resultContainer.classList.remove('hidden');
+                resultContainer.scrollIntoView({ behavior: 'smooth' });
+            } catch (err) {
+                alert('Failed to load item: ' + err.message);
+            }
+        }
+
+        function copySummary() {
+            navigator.clipboard.writeText(summaryText.innerText).then(() => alert('Copied!'));
+        }
+    </script>
+</body>
+
+</html>

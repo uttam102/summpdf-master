@@ -1,0 +1,183 @@
+'use client';
+
+import React from 'react';
+import { Button } from '../ui/button';
+import { jsPDF } from 'jspdf';
+import { Download } from 'lucide-react';
+
+function DownloadSummaryButton({
+  title,
+  summaryText,
+  fileName,
+  createdAt,
+}) {
+  const handleDownload = () => {
+    const doc = new jsPDF();
+    const pageWidth = doc.internal.pageSize.getWidth();
+    const pageHeight = doc.internal.pageSize.getHeight();
+    const margin = 20;
+
+    const addDecor = (pageNum) => {
+      // 1. Sleek Header Band
+      doc.setFillColor(15, 23, 42); // Black Slate
+      doc.rect(0, 0, pageWidth, 35, 'F');
+
+      // Branding in Header
+      doc.setTextColor(255, 255, 255);
+      doc.setFont("helvetica", "bold");
+      doc.setFontSize(22);
+      doc.text("SummPDF", margin, 22);
+
+      doc.setFontSize(9);
+      doc.setFont("helvetica", "normal");
+      doc.text("AI AUTOMATED SUMMARY REPORT", margin, 28);
+      doc.text(`PAGE ${pageNum}`, pageWidth - margin, 22, { align: 'right' });
+
+      // 2. Faint Watermark
+      const anyDoc = doc;
+      if (anyDoc.GState) {
+        anyDoc.setGState(new anyDoc.GState({ opacity: 0.04 }));
+        anyDoc.setTextColor(244, 63, 94); // Rose-500
+        anyDoc.setFontSize(50);
+        anyDoc.text("CONFIDENTIAL", pageWidth / 2, pageHeight / 2, {
+          align: 'center',
+          angle: 45
+        });
+        anyDoc.setGState(new anyDoc.GState({ opacity: 1 }));
+      }
+
+      // 3. Simple Border
+      doc.setDrawColor(226, 232, 240);
+      doc.setLineWidth(0.1);
+      doc.rect(10, 10, pageWidth - 20, pageHeight - 20);
+
+      // 4. Footer Life Quote
+      const quoteY = pageHeight - 15;
+      doc.setFont("helvetica", "italic");
+      doc.setFontSize(8);
+      doc.setTextColor(244, 63, 94);
+      const quote = '"Simple can be harder than complex: You have to work hard to get your thinking clean to make it simple." - Steve Jobs';
+      doc.text(quote, pageWidth / 2, quoteY, { align: 'center' });
+    };
+
+    // Apply first page decor
+    addDecor(1);
+
+    // 5. THE MEMO STRUCTURE
+    let cursorY = 55;
+    doc.setTextColor(15, 23, 42);
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(16);
+    doc.text("MEMORANDUM", margin, cursorY);
+
+    cursorY += 4;
+    doc.setDrawColor(15, 23, 42);
+    doc.setLineWidth(0.8);
+    doc.line(margin, cursorY, pageWidth - margin, cursorY);
+
+    cursorY += 10;
+    doc.setFontSize(10);
+
+    // Memo Data
+    const memoData = [
+      { label: "FROM:", value: "SummPDF AI Intelligence" },
+      { label: "DATE:", value: new Date(createdAt).toLocaleDateString() },
+      { label: "REF:", value: fileName },
+      { label: "TITLE:", value: title }
+    ];
+
+    memoData.forEach(item => {
+      doc.setFont("helvetica", "bold");
+      doc.text(item.label, margin, cursorY);
+      doc.setFont("helvetica", "normal");
+
+      const wrappedValue = doc.splitTextToSize(item.value, 140);
+      doc.text(wrappedValue, margin + 25, cursorY);
+      cursorY += (wrappedValue.length * 5) + 3;
+    });
+
+    cursorY += 5;
+    doc.setDrawColor(241, 245, 249);
+    doc.line(margin, cursorY, pageWidth - margin, cursorY);
+
+    cursorY += 12;
+    doc.setFont("helvetica", "bold");
+    doc.setTextColor(225, 29, 72); // Rose-600
+    doc.text("ANALYSIS REPORT:", margin, cursorY);
+
+    // 6. BODY TEXT (Respect original formatting but with clean layout)
+    cursorY += 8;
+    doc.setTextColor(15, 23, 42);
+    doc.setFontSize(10.5); // Slightly smaller for better fit
+    doc.setFont("helvetica", "normal");
+
+    const lines = summaryText.split('\n');
+    const maxY = pageHeight - 30;
+
+    lines.forEach((line) => {
+      const content = line.trim();
+      if (!content) {
+        cursorY += 4; // Add a small gap for empty lines instead of skipping
+        return;
+      }
+
+      const isListItem = content.match(/^[-*•]|\d+\. /);
+      const textToWrap = isListItem ? content.replace(/^[-*•]\s*|\d+\.\s*/, '').trim() : content;
+
+      const textWidth = isListItem ? 160 : 170;
+      const xPos = isListItem ? margin + 8 : margin;
+
+      const wrappedLines = doc.splitTextToSize(textToWrap, textWidth);
+
+      // Page break check
+      if (cursorY + (wrappedLines.length * 6) > maxY) {
+        doc.addPage();
+        addDecor(doc.getNumberOfPages());
+        doc.setTextColor(15, 23, 42);
+        doc.setFontSize(10.5);
+        doc.setFont("helvetica", "normal");
+        cursorY = 50;
+      }
+
+      if (isListItem) {
+        doc.setFillColor(225, 29, 72);
+        doc.circle(margin + 3, cursorY - 1, 0.6, 'F');
+      }
+
+      doc.text(textToWrap, xPos, cursorY, {
+        maxWidth: textWidth,
+        lineHeightFactor: 1.15
+      });
+
+      cursorY += (wrappedLines.length * 5) + 3;
+    });
+
+    // 7. SIGN-OFF
+    if (cursorY + 25 > pageHeight) {
+      doc.addPage();
+      addDecor(doc.getNumberOfPages());
+      cursorY = 50;
+    }
+
+    cursorY += 8;
+    doc.setFont("helvetica", "bold");
+    doc.setFontSize(9);
+    doc.text("Generated by SummPDF AI Assistant", margin, cursorY);
+
+    const cleanTitle = title.replace(/[^a-zA-Z0-9]/g, '_').substring(0, 50);
+    doc.save(`SummPDF_Report_${cleanTitle}.pdf`);
+  };
+
+  return (
+    <Button
+      size="sm"
+      className="h-8 bg-rose-100 text-rose-600 hover:text-rose-700 hover:bg-rose-50 flex items-center gap-2 font-semibold border-0"
+      onClick={handleDownload}
+    >
+      <Download size={14} />
+      Download PDF
+    </Button>
+  );
+}
+
+export default DownloadSummaryButton;

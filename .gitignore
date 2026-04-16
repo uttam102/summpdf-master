@@ -1,0 +1,32 @@
+# Environment Variables
+.env
+.env.*
+!.env.example
+
+# Node
+node_modules/
+dist/
+dist-ssr/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Go
+backend/main.exe
+backend/summpdf-backend.exe
+backend/tmp/
+backend/uploads/
+*.exe
+
+# Logs
+*.log
+
+# Editor & OS files
+.vscode/
+.idea/
+.DS_Store
+
+# Temporary Files
+tmp/
+uploads/
