@@ -65,6 +65,43 @@ SummPDF has been completely reimagined to deliver blazing-fast processing by lev
 
 ---
 
+## 🏛️ System Architecture
+
+Our robust, decoupled architecture ensures separation of concerns, high scalability, and an excellent developer experience.
+
+```mermaid
+graph TD
+    Client[React 19 Vite Frontend]
+    API[Go Gin API]
+    Mongo[(MongoDB Atlas)]
+    CloudStorage[UploadThing]
+    AI[Google Gemini AI]
+    Auth[Clerk Auth]
+    
+    Client -- "HTTP JSON" --> API
+    Client -- "Direct Upload" --> CloudStorage
+    Client -- "Authenticate" --> Auth
+    
+    API -- "CRUD Operations" --> Mongo
+    API -- "Fetch PDF" --> CloudStorage
+    API -- "Prompt / Summarize" --> AI
+    
+    classDef frontend fill:#61DAFB,stroke:#fff,stroke-width:2px,color:#000;
+    classDef backend fill:#00ADD8,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef database fill:#47A248,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef ai fill:#FFA700,stroke:#fff,stroke-width:2px,color:#fff;
+    classDef auth fill:#9D75FF,stroke:#fff,stroke-width:2px,color:#fff;
+    
+    class Client frontend;
+    class API backend;
+    class Mongo database;
+    class CloudStorage cloud;
+    class AI ai;
+    class Auth auth;
+```
+
+---
+
 ## 🚀 Getting Started
 
 ### Prerequisites
