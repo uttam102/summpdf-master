@@ -170,10 +170,12 @@ Reach out to the developers if you have any questions, ideas, or feedback:
 👨‍💻 **Uttam Kalsariya**
 - 📧 Email: [uttamkalsariya2@gmail.com](mailto:uttamkalsariya2@gmail.com)
 - 🐙 GitHub: [@uttam102](https://github.com/uttam102)
+- 💼 LinkedIn: [Uttam Kalsariya](https://www.linkedin.com/in/uttam-kalsariya/)
 
 👨‍💻 **Akash Kalsariya**
 - 📧 Email: [akashkalsariya88@gmail.com](mailto:akashkalsariya88@gmail.com)
 - 🐙 GitHub: [@AKASH88](https://github.com/AKASH88)
+- 💼 LinkedIn: [Akash Kalsariya](https://www.linkedin.com/in/akash-kalsariya-9725822a2/)
 
 ---
 
