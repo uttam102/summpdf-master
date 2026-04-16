@@ -2,7 +2,7 @@
   
 <img src="img/logo.png" alt="SummPDF Logo" width="150">
 
-# SummPDF
+
 
 **Instant AI-Powered PDF Summaries & Intelligent Chat**
 
