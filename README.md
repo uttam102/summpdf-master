@@ -169,7 +169,7 @@ Reach out to the developers if you have any questions, ideas, or feedback:
 
 👨‍💻 **Uttam Kalsariya**
 - 📧 Email: [uttamkalsariya2@gmail.com](mailto:uttamkalsariya2@gmail.com)
-- 🐙 GitHub: [@uttam102](https://github.com/uttam102)
+- 🐙 GitHub: [@uttam-kalsariya](https://github.com/uttam-kalsariya)
 - 💼 LinkedIn: [Uttam Kalsariya](https://www.linkedin.com/in/uttam-kalsariya/)
 
 👨‍💻 **Akash Kalsariya**
@@ -184,3 +184,4 @@ Reach out to the developers if you have any questions, ideas, or feedback:
   <br>
   <i>Optimized for speed, scaling, and maintainability.</i>
 </div>
+
