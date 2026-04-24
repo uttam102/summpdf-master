@@ -174,7 +174,7 @@ Reach out to the developers if you have any questions, ideas, or feedback:
 
 👨‍💻 **Akash Kalsariya**
 - 📧 Email: [akashkalsariya88@gmail.com](mailto:akashkalsariya88@gmail.com)
-- 🐙 GitHub: [@AKASH88](https://github.com/AKASH88)
+- 🐙 GitHub: [@AKASH-KALSARIYA](https://github.com/AKASH-KALSARIYA)
 - 💼 LinkedIn: [Akash Kalsariya](https://www.linkedin.com/in/akash-kalsariya-9725822a2/)
 
 ---
